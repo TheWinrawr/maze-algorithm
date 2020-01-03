@@ -10,10 +10,12 @@ class Maze {
         }
     }
 
+    /**
+     * Generates a new maze.
+     */
     generateMaze() {
         this.generateCells();
         let walls = this.generateWalls();
-        shuffleArray(walls);
 
         while (walls.length > 0) {
             let wall = walls.pop();
@@ -21,7 +23,10 @@ class Maze {
         }
     }
 
-    
+    /**
+     * Attempt to union two cells by breaking a wall. Does nothing if the cells are part of the same disjoint set.
+     * @param {object} wall 
+     */
     breakWall(wall) {
         let cell = this.maze[wall.x][wall.y];
         let neighbor = null;
@@ -43,6 +48,9 @@ class Maze {
         }
     }
     
+    /**
+     * Generate an array of right and down walls in a random order.
+     */
     generateWalls() {
         let walls = [];
         for (let i = 0; i < this.width; i++) {
@@ -51,9 +59,13 @@ class Maze {
                 walls.push({ x: i, y: j, direction: 'down' });
             }
         }
+        shuffleArray(walls);
         return walls;
     }
     
+    /**
+     * Populate the maze array with cell objects.
+     */
     generateCells() {
         for (let i = 0; i < this.width; i++) {
             for (let j = 0; j < this.height; j++) {
@@ -62,6 +74,10 @@ class Maze {
         }
     }
 
+    /**
+     * Draw the maze.
+     * @param {Canvas context} ctx 
+     */
     drawMaze(ctx) {
         ctx.strokeStyle = 'black';
         ctx.beginPath();
@@ -81,6 +97,7 @@ class Maze {
             }
         }
         
+        // Draw maze borders. Top left (entrance) and bottom right (exit) cells are left open
         ctx.moveTo(0, 0);
         ctx.lineTo(ctx.canvas.width, 0);
         ctx.lineTo(ctx.canvas.width, ctx.canvas.height - this.cellSize);
