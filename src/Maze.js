@@ -42,7 +42,7 @@ class Maze {
         }
 
         walls.forEach(wall => {
-            if (Math.random() < 1) {
+            if (Math.random() < 0.2) {
                 if (wall.direction === 'right') {
                     this.maze[wall.x][wall.y].rightWall = false;
                 }

@@ -10,7 +10,7 @@ let maze = new Maze(canvas.clientWidth, canvas.clientHeight, cellSize);
 maze.generateRandomMaze();
 maze.drawMaze(ctx);
 
-let steps = Search.bfs(maze.maze);
+let steps = Search.astar(maze.maze);
 ctx.beginPath();
 ctx.strokeStyle = 'LightCoral';
 let anim = {
