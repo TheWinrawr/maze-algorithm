@@ -7,10 +7,10 @@ ctx.fillRect(0, 0, canvas.clientWidth, canvas.clientHeight);
 let cellSize = 25;
 
 let maze = new Maze(canvas.clientWidth, canvas.clientHeight, cellSize);
-maze.generateMaze();
+maze.generateRandomMaze();
 maze.drawMaze(ctx);
 
-let steps = Search.greedy(maze.maze);
+let steps = Search.bfs(maze.maze);
 ctx.beginPath();
 ctx.strokeStyle = 'LightCoral';
 let anim = {
@@ -26,6 +26,16 @@ let anim = {
         }
         if (steps.length > 0) {
             requestAnimationFrame(anim.drawSteps);
+        }
+        else {
+            ctx.beginPath();
+            ctx.strokeStyle = 'red';
+            ctx.moveTo(node.cell.x * cellSize + cellSize / 2, node.cell.y * cellSize + cellSize / 2);
+            while (node.parent !== null) {
+                node = node.parent;
+                ctx.lineTo(node.cell.x * cellSize + cellSize / 2, node.cell.y * cellSize + cellSize / 2);
+            }
+            ctx.stroke();
         }
     }
 }

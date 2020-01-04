@@ -25,6 +25,33 @@ class Maze {
             this.breakWall(wall);
         }
     }
+    
+    generateRandomMaze() {
+        this.generateMaze();
+        let walls = [];
+        for (let i = 0; i < this.width; i++) {
+            for (let j = 0; j < this.height; j++) {
+                let cell = this.maze[i][j];
+                if (cell.rightWall) {
+                    walls.push({x: i, y: j, direction: 'right'});
+                }
+                if (cell.downWall) {
+                    walls.push({x: i, y: j, direction: 'down'});
+                }
+            }
+        }
+
+        walls.forEach(wall => {
+            if (Math.random() < 1) {
+                if (wall.direction === 'right') {
+                    this.maze[wall.x][wall.y].rightWall = false;
+                }
+                else {
+                    this.maze[wall.x][wall.y].downWall = false;
+                }
+            }
+        })
+    }
 
     /**
      * Attempt to union two cells by breaking a wall. Does nothing if the cells are part of the same disjoint set.
