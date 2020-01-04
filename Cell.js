@@ -5,6 +5,7 @@ class Cell {
         this.parent = this;
         this.rightWall = true;
         this.downWall = true;
+        this.visited = false;
     }
 
     find() {

@@ -8,6 +8,9 @@ class Maze {
         for (let i = 0; i < this.width; i++) {
             this.maze[i] = new Array(this.height);
         }
+
+        this.entrance = this.maze[0][0];
+        this.exit = this.maze[this.width - 1][this.height - 1];
     }
 
     /**
